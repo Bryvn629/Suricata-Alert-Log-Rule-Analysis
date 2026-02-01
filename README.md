@@ -85,6 +85,18 @@ Tools
 	•	Linux terminal — log analysis and correlation
 	•	GitHub — documentation and evidence presentation
 
+EVE log location on Linux systems: /var/log/suricata/eve.json
+
+Command used to view the log:sudo cat /var/log/suricata/eve.json
+
+Command used to copy the log for analysis:sudo cp /var/log/suricata/eve.json ~/eve.json
+
+Commands used to analyze the log:jq 'select(.event_type=="alert")' eve.json
+jq 'select(.event_type=="http")' eve.json
+jq 'select(.event_type=="flow")' eve.json
+
+
+
 
 
 
