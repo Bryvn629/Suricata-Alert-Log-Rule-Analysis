@@ -77,11 +77,14 @@ Flow Event
   "flow_id": 123456789,
   "proto": "TCP"
 
-How to Reproduce
+How to Reproduce:
+
 Place the log file in /samples/eve.json and run:
+
  jq 'select(.event_type=="alert")' eve.json
 jq 'select(.event_type=="http")' eve.json
 jq 'select(.event_type=="flow")' eve.json
+
 
 What This Proves
 	•	IDS alert triage
