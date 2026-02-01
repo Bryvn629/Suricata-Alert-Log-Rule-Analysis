@@ -5,3 +5,4 @@ alert http any any -> any any (
   classtype:trojan-activity;
   sid:9000001; rev:1;
 )
+alert http any any -> any any (msg:"Suspicious HTTP Request"; content:"/update"; http.host; flow:to_server; sid:1000001;)
