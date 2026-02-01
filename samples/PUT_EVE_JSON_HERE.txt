@@ -1,1 +1,12 @@
-Place exported eve.json logs here if desired.
+
+{"timestamp":"2026-02-01T10:15:21.001Z","event_type":"alert","src_ip":"10.0.0.5","dest_ip":"93.184.216.34","proto":"TCP","flow_id":123456789,"alert":{"signature":"ET POLICY Suspicious HTTP Request","severity":2,"category":"Potentially Bad Traffic"}}
+
+{"timestamp":"2026-02-01T10:15:21.120Z","event_type":"http","src_ip":"10.0.0.5","dest_ip":"93.184.216.34","hostname":"example.com","url":"/update/check","http_user_agent":"Windows-Update-Agent","http_method":"GET","status":200,"flow_id":123456789}
+
+{"timestamp":"2026-02-01T10:15:21.300Z","event_type":"flow","src_ip":"10.0.0.5","dest_ip":"93.184.216.34","proto":"TCP","flow_id":123456789,"flow":{"pkts_toserver":12,"pkts_toclient":10,"bytes_toserver":2048,"bytes_toclient":4096}}
+
+{"timestamp":"2026-02-01T10:16:02.445Z","event_type":"alert","src_ip":"10.0.0.5","dest_ip":"151.101.1.69","proto":"TCP","flow_id":987654321,"alert":{"signature":"ET INFO Possible External IP Lookup","severity":3,"category":"Informational"}}
+
+{"timestamp":"2026-02-01T10:16:02.600Z","event_type":"http","src_ip":"10.0.0.5","dest_ip":"151.101.1.69","hostname":"api.ipify.org","url":"/?format=json","http_user_agent":"curl/7.68.0","http_method":"GET","status":200,"flow_id":987654321}
+
+{"timestamp":"2026-02-01T10:16:02.880Z","event_type":"flow","src_ip":"10.0.0.5","dest_ip":"151.101.1.69","proto":"TCP","flow_id":987654321,"flow":{"pkts_toserver":6,"pkts_toclient":5,"bytes_toserver":1024,"bytes_toclient":2048}}
