@@ -54,3 +54,38 @@ Disposition: False Positive — traffic was legitimate software update communica
 Tuning Action: Modified rule to include host match and flow direction requirement
 
 Outcome: Eliminated repeated benign alerts while preserving detection capability
+
+Evidence Samples (Sanitized)
+
+### Alert Event
+```json
+{
+  "event_type": "alert",
+  "src_ip": "10.0.0.5",
+  "dest_ip": "93.184.216.34",
+  "alert": { "signature": "ET POLICY Suspicious HTTP Request", "severity": 2 }
+}
+HTTP Event
+{
+  "event_type": "http",
+  "hostname": "example.com",
+  "url": "/update/check",
+  "http_user_agent": "Windows-Update-Agent"
+
+Flow Event
+ "event_type": "flow",
+  "flow_id": 123456789,
+  "proto": "TCP"
+
+How to Reproduce
+Place the log file in /samples/eve.json and run:
+ jq 'select(.event_type=="alert")' eve.json
+jq 'select(.event_type=="http")' eve.json
+jq 'select(.event_type=="flow")' eve.json
+
+What This Proves
+	•	IDS alert triage
+	•	Log correlation
+	•	False positive identification
+	•	Detection rule tuning
+
