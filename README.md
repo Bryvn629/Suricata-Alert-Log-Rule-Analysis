@@ -81,7 +81,7 @@ How to Reproduce:
 
 Place the log file in /samples/eve.json and run:
 
- jq 'select(.event_type=="alert")' eve.json
+jq 'select(.event_type=="alert")' eve.json
 jq 'select(.event_type=="http")' eve.json
 jq 'select(.event_type=="flow")' eve.json
 
