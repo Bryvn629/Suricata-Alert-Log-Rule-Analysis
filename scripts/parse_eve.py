@@ -17,3 +17,10 @@ if __name__ == "__main__":
         print("Usage: python parse_eve.py eve.json")
     else:
         parse_eve(sys.argv[1])
+
+#!/bin/bash
+
+LOGFILE="../samples/eve.json"
+
+echo "Top Alert Signatures:"
+jq -r 'select(.event_type=="alert") | .alert.signature' $LOGFILE | sort | uniq -c | sort -nr | head
