@@ -20,3 +20,29 @@
     "redirect": "https://opensource.google/"
   }
 }
+
+Findings
+
+Suricata generated an alert for the “GET on wire” signature when an internal host initiated HTTP traffic to an external server.
+
+HTTP metadata revealed the User-Agent curl/7.74.0, indicating command-line or scripted traffic rather than normal browser activity.
+
+Flow data showed minimal packets and bytes transferred, consistent with a simple web request. The server response was a 301 redirect to HTTPS, confirming legitimate web infrastructure.
+
+Outcome and Analyst Assessment
+
+Determination: False Positive
+
+The alert was triggered by generic HTTP GET behavior. Log correlation confirmed the traffic was benign.
+
+Action Taken:
+
+Documented the alert as a false positive
+
+Identified rule sensitivity to non-malicious HTTP behavior
+
+Recommended rule tuning to reduce alert noise
+
+Key Takeaway
+
+This investigation demonstrated the importance of validating IDS alerts through multi-log correlation before determining malicious intent.
