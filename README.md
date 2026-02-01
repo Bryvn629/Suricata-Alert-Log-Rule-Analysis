@@ -1,117 +1,40 @@
-Suricata IDS Alert & Log Analysis — SOC Investigation Lab
-Lab Overview
+# Suricata IDS Alert, EVE Log Correlation & Rule Tuning — SOC Investigation Lab
 
-This project demonstrates a real-world Security Operations Center (SOC) workflow using Suricata EVE JSON logs. The lab walks through the full investigation lifecycle:
+## Lab Overview
+This project demonstrates a real Security Operations Center (SOC) workflow using Suricata EVE JSON logs:
+Alert → Triage → Correlate Logs → Determine False/True Positive → Tune Detection Rule
 
-Alert → Triage → Correlate Logs → Determine True/False Positive → Tune Detection Rule
+## Results & Findings
+- Alert Observed: ET POLICY Suspicious HTTP Request
+- Correlated alert, http, and flow logs using src_ip, dest_ip, timestamps, and flow_id
+- Determined traffic was a False Positive caused by legitimate update traffic
+- Tuned detection rule to prevent repeat benign alerts
 
-The objective is to show practical skills used by SOC analysts to validate alerts, reduce false positives, and improve detection fidelity.
-
-Skills Demonstrated
-
-IDS alert triage using Suricata signatures
-
-Deep analysis of EVE JSON logs (alert, http, flow)
-
-Log correlation using src_ip, dest_ip, flow_id, and timestamps
-
-Investigation methodology to determine alert validity
-
-Detection engineering through rule tuning
-
-Command-line log analysis using jq
-
-Basic automation for log summarization
-
-Investigation Scenario
-
-A Suricata alert triggered on HTTP traffic flagged as suspicious. The task was to determine whether the traffic was malicious or benign by correlating multiple log types within the same flow.
-
-Results & Findings
-
-Alert Observed: ET POLICY Suspicious HTTP Request (sid <SID>)
-
-Initial Hypothesis: Possible malicious download or command-and-control behavior
-
-Correlation Method: Matched alert, http, and flow events using:
-
-src_ip and dest_ip
-
-flow_id
-
-Timestamp proximity
-
-Key Evidence:
-
-HTTP hostname and URL path
-
-HTTP user agent
-
-Flow packet direction and byte counts
-
-Disposition: False Positive — traffic was legitimate software update communication
-
-Tuning Action: Modified rule to include host match and flow direction requirement
-
-Outcome: Eliminated repeated benign alerts while preserving detection capability
-
-Evidence Samples (Sanitized)
+## Evidence Samples (Sanitized)
 
 ### Alert Event
-```json
-{
-  "event_type": "alert",
-  "src_ip": "10.0.0.5",
-  "dest_ip": "93.184.216.34",
-  "alert": { "signature": "ET POLICY Suspicious HTTP Request", "severity": 2 }
-}
-HTTP Event
-{
-  "event_type": "http",
-  "hostname": "example.com",
-  "url": "/update/check",
-  "http_user_agent": "Windows-Update-Agent"
+{"event_type":"alert","src_ip":"10.0.0.5","dest_ip":"93.184.216.34","alert":{"signature":"ET POLICY Suspicious HTTP Request","severity":2},"flow_id":123456789}
 
-Flow Event
- "event_type": "flow",
-  "flow_id": 123456789,
-  "proto": "TCP"
+### HTTP Event
+{"event_type":"http","hostname":"example.com","url":"/update/check","http_user_agent":"Windows-Update-Agent","flow_id":123456789}
 
-🔧 Tools & Commands Used
+### Flow Event
+{"event_type":"flow","proto":"TCP","flow":{"pkts_toserver":12,"pkts_toclient":10},"flow_id":123456789}
 
-Tools
-	•	Suricata — generated EVE JSON security logs
-	•	jq — filtered and parsed JSON log data from the command line
-	•	Linux terminal — log analysis and correlation
-	•	GitHub — documentation and evidence presentation
+## Tools & Commands Used
 
-EVE log location on Linux systems: /var/log/suricata/eve.json
+/var/log/suricata/eve.json
 
-Command used to view the log:sudo cat /var/log/suricata/eve.json
-
-Command used to copy the log for analysis:sudo cp /var/log/suricata/eve.json ~/eve.json
-
-Commands used to analyze the log:jq 'select(.event_type=="alert")' eve.json
-jq 'select(.event_type=="http")' eve.json
-jq 'select(.event_type=="flow")' eve.json
-
-
-
-
-
-
-How to Reproduce:
-
-Place the log file in /samples/eve.json and run:
+sudo cat /var/log/suricata/eve.json
+sudo cp /var/log/suricata/eve.json ~/eve.json
 
 jq 'select(.event_type=="alert")' eve.json
 jq 'select(.event_type=="http")' eve.json
 jq 'select(.event_type=="flow")' eve.json
 
-
-What This Proves
-	•	IDS alert triage
-	•	Log correlation
-	•	False positive identification
-	•	Detection rule tuning
-
+## Repository Structure
+README.md
+docs/lab-report.md
+samples/eve.json
+scripts/log_summary.sh
+suricata/rule-tuning.rules
