@@ -1,0 +1,7 @@
+alert http any any -> any any (
+  msg:"LAB: Suspicious outbound script-based traffic";
+  flow:established,to_server;
+  http.user_agent; content:"curl"; nocase;
+  classtype:trojan-activity;
+  sid:9000001; rev:1;
+)
