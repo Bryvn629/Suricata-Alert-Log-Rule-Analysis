@@ -46,3 +46,20 @@ Recommended rule tuning to reduce alert noise
 Key Takeaway
 
 This investigation demonstrated the importance of validating IDS alerts through multi-log correlation before determining malicious intent.
+
+Full Investigation Walkthrough
+
+## Step 1 — Review the Alert
+The Suricata alert flagged HTTP traffic as suspicious. Initial review showed the signature matched a common update pattern.
+
+## Step 2 — Analyze HTTP Logs
+Reviewed `hostname`, `url`, and `http_user_agent`. Observed the traffic was consistent with legitimate software update behavior.
+
+## Step 3 — Correlate Flow Logs
+Matched `flow_id`, `src_ip`, and `dest_ip` between alert and HTTP events to confirm they belonged to the same session.
+
+## Step 4 — Determine Disposition
+Based on the evidence, determined this was a False Positive.
+
+## Step 5 — Rule Tuning
+Modified the rule to include host matching and flow direction to prevent benign traffic from triggering alerts.
