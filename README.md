@@ -77,6 +77,17 @@ Flow Event
   "flow_id": 123456789,
   "proto": "TCP"
 
+🔧 Tools & Commands Used
+
+Tools
+	•	Suricata — generated EVE JSON security logs
+	•	jq — filtered and parsed JSON log data from the command line
+	•	Linux terminal — log analysis and correlation
+	•	GitHub — documentation and evidence presentation
+
+
+
+
 How to Reproduce:
 
 Place the log file in /samples/eve.json and run:
