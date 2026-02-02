@@ -1,5 +1,9 @@
 # Suricata IDS Alert, EVE Log Correlation & Rule Tuning — SOC Investigation Lab
 
+## Case Summary (TL;DR)
+
+A Suricata IDS alert flagged HTTP traffic as suspicious. By correlating `alert`, `http`, and `flow` EVE logs using `flow_id`, `src_ip`, and timestamps, the activity was confirmed to be legitimate Windows update traffic. The alert was determined to be a **False Positive**, and the Suricata rule was tuned to prevent similar benign alerts while preserving detection accuracy.
+
 ## Lab Overview
 This project demonstrates a real Security Operations Center (SOC) workflow using Suricata EVE JSON logs:
 Alert → Triage → Correlate Logs → Determine False/True Positive → Tune Detection Rule
@@ -11,6 +15,10 @@ Alert → Triage → Correlate Logs → Determine False/True Positive → Tune D
 - Tuned detection rule to prevent repeat benign alerts
 
 ## Evidence Samples (Sanitized)
+
+## Example Command Output
+
+### Viewing Alert Logs
 
 ### Alert Event
 {"event_type":"alert","src_ip":"10.0.0.5","dest_ip":"93.184.216.34","alert":{"signature":"ET POLICY Suspicious HTTP Request","severity":2},"flow_id":123456789}
@@ -45,3 +53,11 @@ docs/lab-report.md
 samples/eve.json
 scripts/log_summary.sh
 suricata/rule-tuning.rules
+
+## How to Review This Project
+
+1. Start with the Case Summary at the top.
+2. Review the Evidence Samples shown above.
+3. Navigate to `docs/lab-report.md` for the full investigation walkthrough.
+4. Open `samples/eve.json` to see the raw EVE logs used.
+5. Review `suricata/rule-tuning.rules` to see how detection was improved.
