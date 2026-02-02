@@ -21,6 +21,13 @@ Alert → Triage → Correlate Logs → Determine False/True Positive → Tune D
 ### Flow Event
 {"event_type":"flow","proto":"TCP","flow":{"pkts_toserver":12,"pkts_toclient":10},"flow_id":123456789}
 
+## Investigation Summary
+
+- **Initial Hypothesis:** Alert might indicate malicious activity.
+- **Evidence Correlated:** HTTP requests and flow logs showed this was legitimate update traffic.
+- **Conclusion:** Determined to be a **False Positive**.
+- **Rule Tuning Result:** Adjusted rule conditions — reduced benign alerts without impacting detection of genuine threats.
+
 ## Tools & Commands Used
 
 /var/log/suricata/eve.json
