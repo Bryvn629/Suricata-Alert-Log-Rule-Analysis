@@ -18,6 +18,75 @@ Alert → Triage → Correlate Logs → Determine False/True Positive → Tune D
 
 ## Example Command Output
 
+Command:
+jq 'select(.event_type=="alert")' samples/eve.json
+
+Output:
+{
+  "timestamp": "2026-02-01T10:15:21.001Z",
+  "event_type": "alert",
+  "src_ip": "10.0.0.5",
+  "dest_ip": "93.184.216.34",
+  "proto": "TCP",
+  "flow_id": 123456789,
+  "alert": {
+    "signature": "ET POLICY Suspicious HTTP Request",
+    "severity": 2
+  }
+}
+
+
+Command:
+jq 'select(.event_type=="http")' samples/eve.json
+
+Output:
+{
+  "timestamp": "2026-02-01T10:15:21.120Z",
+  "event_type": "http",
+  "src_ip": "10.0.0.5",
+  "dest_ip": "93.184.216.34",
+  "hostname": "example.com",
+  "url": "/update/check",
+  "http_user_agent": "Windows-Update-Agent",
+  "flow_id": 123456789
+}
+
+
+Command:
+jq 'select(.event_type=="flow")' samples/eve.json
+
+Output:
+{
+  "timestamp": "2026-02-01T10:15:21.300Z",
+  "event_type": "flow",
+  "src_ip": "10.0.0.5",
+  "dest_ip": "93.184.216.34",
+  "proto": "TCP",
+  "flow_id": 123456789,
+  "flow": {
+    "pkts_toserver": 12,
+    "pkts_toclient": 10
+  }
+}
+
+
+Command:
+jq 'select(.flow_id==123456789)' samples/eve.json
+
+Output:
+{
+  "event_type": "alert",
+  "flow_id": 123456789
+}
+{
+  "event_type": "http",
+  "flow_id": 123456789
+}
+{
+  "event_type": "flow",
+  "flow_id": 123456789
+}
+
 ### Viewing Alert Logs
 
 ### Alert Event
